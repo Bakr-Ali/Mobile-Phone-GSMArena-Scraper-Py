@@ -4,6 +4,7 @@ import csv
 import os
 import time
 import json
+import platform
 
 # Class gsmarena scrap the website phones models and its devices and save to csv file individually.
 class Gsmarena():
@@ -16,7 +17,11 @@ class Gsmarena():
         self.phones_brands = []
         self.url = 'https://www.gsmarena.com/' # GSMArena website url
         self.new_folder_name = 'GSMArenaDataset' # Folder name on which files going to save.
-        self.absolute_path = os.popen('pwd').read().strip() + '/' + self.new_folder_name  # It create the absolute path of the GSMArenaDataset folder.
+        if platform.system() == 'Windows' :
+            self.absolute_path = os.getcwd() + '/' + self.new_folder_name  +'/' # It create the absolute path of the GSMArenaDataset folder in Windows platform.
+        else:
+            self.absolute_path = os.popen('pwd').read().strip() + '/' + self.new_folder_name  # It create the absolute path of the GSMArenaDataset folder in not Windows platform.
+        
 
     # This function crawl the html code of the requested URL.
     def crawl_html_page(self, sub_url):
