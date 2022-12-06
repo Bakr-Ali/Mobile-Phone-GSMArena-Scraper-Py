@@ -28,10 +28,16 @@ class Gsmarena():
 
         url = self.url + sub_url  # Url for html content parsing.
         header={"User-Agent":"#user agent of your system  "}
+        # https://github.com/saschazesiger/Free-Proxies
+        http_proxy = "103.127.243.31:1080"
+        proxy_servers = {
+            'http': "http://" + http_proxy,
+            'https': "https://" + http_proxy
+        }
         time.sleep(30)  #SO that your IP does not gets blocked by the website
         # Handing the connection error of the url.
         try:
-            page = requests.get(url,timeout= 5, headers=header)
+            page = requests.get(url,timeout= 5, headers=header, proxies=proxy_servers)
             soup = BeautifulSoup(page.text, 'html.parser')  # It parses the html data from requested url.
             return soup
 
